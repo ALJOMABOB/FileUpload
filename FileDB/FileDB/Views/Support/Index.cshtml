@@ -1,58 +1,64 @@
 ﻿@model IEnumerable<FileDB.Models.Support>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "FileViewer";
 }
 
 
 
 
-<h2>Index</h2>
+<h2>CF filters</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="gridtable">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Summary)
-        </th>
-        <th>Total Files</th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @if (item.FileDetails.Count() == 0)
+<div class="form-group">
+    <div class="col-md-13">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary)
+                </th>
+                <th>Total Files</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
             {
-                <span>No File</span>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Summary)
+                    </td>
+                    <td>
+                        @if (item.FileDetails.Count() == 0)
+                        {
+                            <span>No File</span>
+                        }
+                        else
+                        {
+                            <span>@item.FileDetails.Count() File(s)</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.SupportId }) |
+                        <a href="javascript:void(0);" data-id="@item.SupportId" class="deleteItem">Delete</a>
+                    </td>
+                </tr>
             }
-            else
-            {
-                <span>@item.FileDetails.Count() File(s)</span>
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.SupportId }) |
-            <a href="javascript:void(0);" data-id="@item.SupportId" class="deleteItem">Delete</a>
-        </td>
-    </tr>
-    }
 
-</table>
+        </table>
 
-<script lang="en-gb" type="text/javascript">
+    </div>
+    </div>
+
+    <script lang="en-gb" type="text/javascript">
 
 $('.deleteItem').click(function (e) {
            e.preventDefault();
@@ -75,5 +81,5 @@ $('.deleteItem').click(function (e) {
 
                 }
     });
-</script>
+        </script>
 

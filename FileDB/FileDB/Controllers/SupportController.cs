@@ -12,15 +12,17 @@ namespace FileDB.Controllers
 {
     public class SupportController : Controller
     {
+        //calling database class
         private SupportContext db = new SupportContext();
 
+        //closing the instance of the database
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
 
-
+        
         public ActionResult Index()
         {
             return View(db.Supports.ToList());
@@ -33,6 +35,7 @@ namespace FileDB.Controllers
 
 
 
+        //creates the owner of the file and stores the location 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Support support)
