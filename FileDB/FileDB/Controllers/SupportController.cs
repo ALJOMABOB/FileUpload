@@ -35,7 +35,14 @@ namespace FileDB.Controllers
 
 
 
-        //creates the owner of the file and stores the location 
+        /// <summary>
+        /// takes in the support paramaters and adds them to the database with the fileDetails getting sent though 
+        /// to its table. for how ever many files are added it takes the support id to show who own the files
+        /// 
+        ///
+        /// </summary>
+        /// <param name="support"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Support support)
