@@ -4,28 +4,6 @@
     ViewBag.Title = "Edit";
 }
 
-$('.deleteItem').click(function (e) {
-           e.preventDefault();
-           var $ctrl = $(this);
-           if (confirm('Do you really want to delete this file?')) {
-               $.ajax({
-                   url: '@Url.Action("DeleteFile")',
-                type: 'POST',
-                data: { id: $(this).data('id') }
-                }).done(function (data) {
-                if (data.Result == "OK") {
-                $ctrl.closest('li').remove();
-                }
-                else if (data.Result.Message) {
-                alert(data.Result.Message);
-                }
-                }).fail(function () {
-                alert("There is something wrong. Please try again.");
-                })
-
-                }
-                });
-
 
 
 @using (Html.BeginForm("Edit", "Support", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -81,6 +59,32 @@ $('.deleteItem').click(function (e) {
 
 @section Scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 }
+
+<script lang="en-gb" type="text/javascript">
+
+$('.deleteItem').click(function (e) {
+           e.preventDefault();
+           var $ctrl = $(this);
+           if (confirm('Do you really want to delete this file?')) {
+               $.ajax({
+                   url: '@Url.Action("DeleteFile")',
+                type: 'POST',
+                data: { id: $(this).data('id') }
+                }).done(function (data) {
+                if (data.Result == "OK") {
+                $ctrl.closest('li').remove();
+                }
+                else if (data.Result.Message) {
+                alert(data.Result.Message);
+                }
+                }).fail(function () {
+                alert("There is something wrong. Please try again.");
+                })
+
+                }
+                });
+
+</script>
